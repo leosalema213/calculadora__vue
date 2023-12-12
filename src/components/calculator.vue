@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
     import { reactive } from 'vue';
 
@@ -6,6 +7,8 @@
         currentOperationText: '',
         currentOperation: ''
     })
+
+    const props = defineProps(['theme'])
 
     // Add digit to calculator screen
     const addDigit = (digit) => {
@@ -132,59 +135,69 @@
             processOperation(par)
         }
     }
+
 </script>
 
 <template>
-    <div class="result">
+    <div :class="props.theme === 'light' ? 'result' : 'result dark'">
         <p class="operation"> {{ estado.previousOperationText }}</p>
-        <input disabled  type="text" :value="estado.currentOperationText" class="input__result">
+        <input disabled  type="text" :value="estado.currentOperationText" :class="props.theme === 'light' ? '' : 'dark'">
     </div>
 
-    <div class="container__buttons"> 
+    <div :class="props.theme === 'light' ? 'container__buttons' : 'container__buttons dark'"> 
         <ul class="buttons">
             <li class="buttons__row">
-                <button @click="click('C')" class="btn btn--destaqued" >C</button>
-                <button @click="click('CE')" class="btn btn--destaqued">CE</button>
-                <button @click="click('/')" class="btn btn--destaqued lg">
-                <img src="../assets/img/icons/icons-divisao.png" alt=""></button>
-                <button @click="click('*')" class="btn btn--destaqued">
-                    <img src="../assets/img/icons/icons-multiplicacao.png" alt="">
+                <button @click="click('C')" :class="props.theme === 'light' ? 'btn btn--destaqued': 'btn btn--dark btn--destaqued--dark'" >C</button>
+                <button @click="click('CE')" :class="props.theme === 'light' ? 'btn btn--destaqued': 'btn btn--dark btn--destaqued--dark'">CE</button>
+                <button @click="click('/')" :class="props.theme === 'light' ? 'btn btn--destaqued': 'btn btn--dark btn--destaqued--dark'">
+                    <img v-if="props.theme === 'light'" src="../assets/img/icons/icons8-dividisão-32.png" alt="/">
+                    <img v-else src="../assets/img/icons/dark/icons-divisao.png" alt="/">
+                </button>
+                <button @click="click('*')" :class="props.theme === 'light' ? 'btn btn--destaqued': 'btn btn--dark btn--destaqued--dark'">
+                    <img v-if="props.theme === 'light'" src="../assets/img/icons/icons8-multiplicação-32.png " alt="*">
+                    <img v-else src="../assets/img/icons/dark/icons-multiplicacao.png" alt="*">
+                </button>
+                
+            </li> 
+            <li class="buttons__row">
+                <button @click="click('7')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >7</button>
+                <button @click="click('8')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >8</button>
+                <button @click="click('9')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >9</button>
+                <button @click="click('-')" :class="props.theme === 'light' ? 'btn btn--destaqued': 'btn btn--dark btn--destaqued--dark'">
+                    <img v-if="props.theme === 'light'" src="../assets/img/icons/icons8-menos-32.png" alt="-">
+                    <img v-else src="../assets/img/icons/dark/icons-menos.png" alt="-">
                 </button>
             </li>
             <li class="buttons__row">
-                <button @click="click('7')" class="btn" >7</button>
-                <button @click="click('8')" class="btn" >8</button>
-                <button @click="click('9')" class="btn" >9</button>
-                <button @click="click('-')" class="btn btn--destaqued">
-                    <img src="../assets/img/icons/icons-menos.png" alt="">
-                </button>
-            </li>
-            <li class="buttons__row">
-                <button @click="click('4')" class="btn" >4</button>
-                <button @click="click('5')" class="btn" >5</button>
-                <button @click="click('6')" class="btn" >6</button>
-                <button @click="click('+')" class="btn btn--destaqued">
-                    <img src="../assets/img/icons/icons-mais.png" alt="">
+                <button @click="click('4')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >4</button>
+                <button @click="click('5')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >5</button>
+                <button @click="click('6')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >6</button>
+                <button @click="click('+')" :class="props.theme === 'light' ? 'btn btn--destaqued': 'btn btn--dark btn--destaqued--dark'">
+                    <img v-if="props.theme === 'light'" src="../assets/img/icons/icons8-soma-32.png" alt="+">
+                    <img v-else src="../assets/img/icons/dark/icons-mais.png" alt="+">
                 </button>
             </li>
             <div class="grid__template">
                 <div>
                     <li class="buttons__row">
-                        <button @click="click('1')" class="btn" >1</button>
-                        <button @click="click('2')" class="btn" >2</button>
-                        <button @click="click('3')" class="btn" >3</button>
+                        <button @click="click('1')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >1</button>
+                        <button @click="click('2')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >2</button>
+                        <button @click="click('3')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >3</button>
                     </li>
                     <li class="buttons__row">
-                        <button @click="click('0')" class="btn" >0</button>
-                        <button @click="click('.')" class="btn" >.</button>
-                        <button @click="click('DEL')" class="btn" >
-                            <img src="../assets/img/icons/icons-remover.png" alt="">
+                        <button @click="click('0')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >0</button>
+                        <button @click="click('.')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >.</button>
+                        <button @click="click('DEL')" :class="props.theme === 'light' ? 'btn' : 'btn btn--dark'" >
+                            <img v-if="props.theme === 'light'" src="../assets/img/icons/icons8-backspace-32.png" alt="del">
+                            <img v-else src="../assets/img/icons/dark/icons-remover.png  " alt="del">
                         </button>
                     </li>
                 </div>
                 <li class="buttons__row ">
-                    <button @click="click('=')"  class="btn equals__button">
-                        <img src="../assets/img/icons/icons-igual.png" alt="">
+                    <button @click="click('=')"  :class="props.theme === 'light' ? 'btn equals__button--light' : 'btn equals__button--dark'">
+                        <img v-if="props.theme === 'light'" src="../assets/img/icons/icons-igual.png" alt="=">
+                        <img v-else src="../assets/img/icons/dark/icons-igual.png" alt="=">
+                        
                     </button>
                 </li>
             </div>
@@ -192,45 +205,61 @@
     </div>
 </template>
 <style scoped>
+
     .result {
         width: 100%;
         height: auto;
-        background-color: rgb(22, 22, 22);
+        background-color: #b4c4f8;
         border-radius: 12px;
         padding: 16px;
     }
+    .result.dark,
+    .result input.dark,
+    .container__buttons.dark{
+        background-color: #000000;
+        color: #fff;
+    }    
     .result .operation {
-        font-size: 12px;
+        font-size: 1em;
         text-align: end;
-        color: #8b8b8b;
+        color: #696969;
         margin-bottom: 6px;
     }
     .result input {
-        font-size: 24px;
+        font-size: 1.5em;
         text-align: end;
         width: 100%;
-        background-color: rgb(22, 22, 22);
+        background-color: #b4c4f8;
         border: none;
+        color: #000;
     }
 
-.grid__template {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-}
-.btn.equals__button {
-    margin-left: 2px;
-    background-color: rgb(153, 10, 58);
-}
-.btn.equals__button:hover {
-    background-color: rgb(224, 3, 77);
-}
+    .grid__template {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+    .btn.equals__button--dark {
+        margin-left: 2px;
+        background-color: rgb(153, 10, 58);
+    }
+    .btn.equals__button--dark:hover {
+        background-color: rgb(224, 3, 77);
+    }
+
+    .btn.equals__button--light {
+        margin-left: 2px;
+        background-color: rgb(42, 117, 255);
+    }
+    .btn.equals__button--light:hover {
+        background-color: rgb(52, 153, 247);
+    }
     .container__buttons {
         width: 100%;
         height: auto;
         border-radius: 12px;
         padding: 16px;
         margin-top: 40px;
-        background-color: rgb(22, 22, 22);
+        background-color: #b4c4f8;
     }
     .buttons {
         width: 100%;
@@ -249,19 +278,35 @@
         padding: 16px;
         width: 100%;
         height: auto;
-        background-color:  rgb(56, 56, 56);
+        background-color: #d6d4d4;
         border: none;
         cursor: pointer;
-        font-size: 24px;
+        font-size: 1.5em;
+        color: #000;
+    }   
+
+    .btn.btn--dark {
+        background-color:  rgb(56, 56, 56);
+        color: #fff;
     }
     .btn:hover {
-        background-color:   rgb(82, 81, 81);
+        background-color:   rgb(199, 199, 199);
     }
-    button.btn--destaqued {
+    .btn--dark:hover {
+        background-color:   rgb(150, 148, 148);
+    }
+    .btn.btn--destaqued {
+        color: rgb(42, 117, 255);
+        background-color:  rgb(255, 255, 255);
+    }
+    .btn.btn--destaqued:hover {
+        background-color:  rgb(231, 229, 229);
+    }
+    button.btn--destaqued--dark {
         color: rgb(255, 0, 85);
         background-color:  rgb(82, 81, 81);
     }
-    button.btn--destaqued:hover {
+    button.btn--destaqued--dark:hover {
         background-color:  rgb(119, 119, 119);
     }
 </style>
